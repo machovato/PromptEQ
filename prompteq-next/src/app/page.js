@@ -330,7 +330,7 @@ export default function Home() {
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
       {/* NAVBAR */}
-      <div style={{ borderBottom: `1px solid ${COLORS.gray}`, padding: "24px 40px", display: "flex", justifyContent: "space-between", alignItems: "center", background: "white" }}>
+      <div className="flex flex-col md:flex-row justify-between items-center bg-white border-b border-[#E5E5E5] px-6 py-6 md:px-10 md:py-6 gap-4 md:gap-0">
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{ width: 32, height: 32, background: COLORS.purple, borderRadius: 8, border: `2px solid ${COLORS.navy}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div style={{ width: 12, height: 16, borderLeft: "3px solid white", borderRight: "3px solid white" }}></div>
@@ -354,10 +354,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{ display: "flex", height: "calc(100vh - 83px)", overflow: "hidden" }}>
+      <div className="flex flex-col lg:flex-row w-full h-auto lg:h-[calc(100vh-83px)] overflow-visible lg:overflow-hidden">
 
         {/* COLUMN 1: LEFT CONFIGURATION */}
-        <div style={{ flex: 1, padding: "48px 40px", maxWidth: 650, borderRight: `2px solid ${COLORS.gray}`, overflowY: "auto", height: "100%", boxSizing: "border-box" }}>
+        <div className="flex-1 w-full lg:max-w-[650px] p-6 lg:p-12 border-b-2 lg:border-b-0 lg:border-r-2 border-[#E5E5E5] overflow-y-visible lg:overflow-y-auto h-auto lg:h-full box-border">
 
           {/* STEP 01 */}
           <div style={{ marginBottom: 48 }}>
@@ -471,13 +471,13 @@ export default function Home() {
         </div>
 
         {/* COLUMN 2: RIGHT BOOTH */}
-        <div style={{ flex: 1, padding: "48px 40px", display: "flex", flexDirection: "column", gap: 24, height: "100%", boxSizing: "border-box", overflow: "hidden" }}>
+        <div className="flex-1 w-full p-6 lg:p-12 flex flex-col gap-6 h-auto lg:h-full overflow-visible lg:overflow-hidden box-border">
 
           {/* TERMINAL */}
-          <div style={{
-            flex: 1, minHeight: 0, background: COLORS.navy, borderRadius: 24, padding: "24px 32px",
-            display: "flex", flexDirection: "column", boxShadow: SHADOWS.hard, border: `2px solid ${COLORS.navy}`
-          }}>
+          <div className="flex flex-col min-h-[500px] lg:min-h-0 flex-1 bg-[#131620] rounded-3xl p-6 lg:p-8"
+            style={{
+              boxShadow: SHADOWS.hard, border: `2px solid ${COLORS.navy}`
+            }}>
             {/* Mac Dots / Header */}
             <div style={{ display: "flex", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: 24, marginBottom: 24 }}>
               <div style={{ display: "flex", gap: 8, marginRight: "auto" }}>
