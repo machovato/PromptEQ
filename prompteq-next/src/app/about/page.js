@@ -70,9 +70,7 @@ export default function AboutPage() {
                     </Link>
 
                     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <div style={{ width: 32, height: 32, background: COLORS.purple, borderRadius: 8, border: `2px solid ${COLORS.navy}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <div style={{ width: 12, height: 16, borderLeft: "3px solid white", borderRight: "3px solid white" }}></div>
-                        </div>
+                        <img src="/logo.png" alt="PromptEQ Logo" style={{ width: 32, height: 32, borderRadius: 8 }} />
                         <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: "-0.5px" }}>About PromptEQ</div>
                     </div>
                 </div>
@@ -149,7 +147,13 @@ function AboutAppTab() {
         <div style={{ animation: "fadeIn 0.4s ease-out" }}>
             <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
-            <h2 style={{ fontSize: 28, fontWeight: 800, letterSpacing: "-1px", margin: "0 0 16px 0" }}>Mixing Console for AI</h2>
+            <div style={{ display: "flex", alignItems: "center", gap: 24, marginBottom: 24 }}>
+                <img src="/logo.png" alt="PromptEQ Logo" style={{ width: 80, height: 80, borderRadius: 20, boxShadow: SHADOWS.hardSmall, border: `2px solid ${COLORS.navy}` }} />
+                <div>
+                    <div style={{ fontSize: 13, fontWeight: 800, color: COLORS.purpleHover, letterSpacing: "1px", marginBottom: 4 }}>ABOUT PROMPTEQ</div>
+                    <h2 style={{ fontSize: 32, fontWeight: 800, letterSpacing: "-1px", margin: 0 }}>Mixing Console for AI</h2>
+                </div>
+            </div>
             <p style={{ fontSize: 16, color: COLORS.text, lineHeight: 1.6, marginBottom: 24 }}>
                 PromptEQ is a <strong>System Prompt and Custom Instructions generator</strong> designed
                 to look and feel like an audio mixing console. Instead of trial-and-error prompting,

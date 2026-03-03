@@ -332,9 +332,7 @@ export default function Home() {
       {/* NAVBAR */}
       <div className="flex flex-col md:flex-row justify-between items-center bg-white border-b border-[#E5E5E5] px-6 py-6 md:px-10 md:py-6 gap-4 md:gap-0">
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ width: 32, height: 32, background: COLORS.purple, borderRadius: 8, border: `2px solid ${COLORS.navy}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ width: 12, height: 16, borderLeft: "3px solid white", borderRight: "3px solid white" }}></div>
-          </div>
+          <img src="/logo.png" alt="PromptEQ Logo" style={{ width: 32, height: 32, borderRadius: 8 }} />
           <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: "-0.5px" }}>PromptEQ</div>
         </div>
 
