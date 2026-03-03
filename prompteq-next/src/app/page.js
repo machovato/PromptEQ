@@ -364,7 +364,7 @@ export default function Home() {
             <div style={{ display: "inline-block", background: "#F3E8FE", color: COLORS.purpleHover, padding: "4px 12px", borderRadius: 16, fontSize: 11, fontWeight: 800, letterSpacing: "1px", marginBottom: 12 }}>STEP 01</div>
             <h2 style={{ fontSize: 28, fontWeight: 800, letterSpacing: "-1px", margin: "0 0 8px 0" }}>Foundation</h2>
             <div style={{ fontSize: 14, color: COLORS.textMuted, marginBottom: 24, lineHeight: 1.5 }}>Select a starting archetype to pre-load a balanced mix of settings, or select a preset and begin customizing the sliders below.</div>
-            <div style={{ display: "flex", gap: 16 }}>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {PRESETS.map(p => (
                 <PresetCard key={p.id} preset={p} active={activePreset === p.id} onClick={() => loadPreset(p.id)} />
               ))}
