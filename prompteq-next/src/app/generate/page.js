@@ -308,6 +308,14 @@ export default function Home() {
       }
 
       setOutput(data.text);
+
+      // Fire GA4 custom event
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag("event", "generate_prompt", {
+          platform: platform,
+          preset: activePreset,
+        });
+      }
     } catch (e) {
       console.error(e);
       setOutput(`Error generating prompt:\n\n${e.message}\n\nPlease verify your environment variables.`);
