@@ -52,41 +52,8 @@ export default function AboutPage() {
     };
 
     return (
-        <div style={{
-            minHeight: "100vh", background: COLORS.bg, color: COLORS.text,
-            fontFamily: "'Inter', sans-serif"
-        }}>
+        <div className="flex-1 flex flex-col font-['Inter'] w-full">
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-
-            {/* HEADER */}
-            <div style={{ borderBottom: `1px solid ${COLORS.gray}`, padding: "24px 40px", display: "flex", justifyContent: "space-between", alignItems: "center", background: "white" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                    <Link href="/" style={{
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        width: 36, height: 36, borderRadius: "50%", background: "#F3F4F6",
-                        color: COLORS.text, cursor: "pointer", transition: "all 0.1s ease"
-                    }} onMouseOver={e => e.currentTarget.style.background = "#E5E7EB"} onMouseOut={e => e.currentTarget.style.background = "#F3F4F6"}>
-                        <ArrowLeft size={20} weight="bold" />
-                    </Link>
-
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <img src="/logo.png" alt="PromptEQ Logo" style={{ width: 32, height: 32, borderRadius: 8 }} />
-                        <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: "-0.5px" }}>About PromptEQ</div>
-                    </div>
-                </div>
-
-                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                    <div style={{
-                        border: `2px solid ${COLORS.gray}`, borderRadius: 24, padding: "6px 16px",
-                        fontSize: 11, fontWeight: 700, fontFamily: "'JetBrains Mono', monospace",
-                        display: "flex", alignItems: "center", gap: 8, background: "#FAFAFA",
-                        color: COLORS.textMuted
-                    }}>
-                        <span style={{ width: 6, height: 6, background: COLORS.purpleHover, borderRadius: "50%" }}></span>
-                        SYSTEM INFO
-                    </div>
-                </div>
-            </div>
 
             {/* TAB SHELF */}
             <div style={{ background: "white", padding: "0 40px", display: "flex", alignItems: "flex-end", gap: 6, position: "relative" }}>
@@ -131,9 +98,6 @@ export default function AboutPage() {
                 {activeTab === 'developer' && <DeveloperTab />}
             </div>
 
-            <div style={{ borderTop: `1px solid ${COLORS.gray}`, padding: "24px 40px", textAlign: "center", color: COLORS.textMuted, fontSize: 13, fontFamily: "'Inter', sans-serif" }}>
-                PromptEQ v1.0.0 • Powered by Google Gemini • Built with Next.js
-            </div>
         </div>
     );
 }
@@ -238,8 +202,8 @@ function TechStackTab() {
                     color: "white"
                 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
-                        <div style={{ padding: 12, background: COLORS.green, borderRadius: 12 }}>
-                            <Lightning size={32} weight="fill" color={COLORS.navy} />
+                        <div style={{ width: 56, height: 56, background: COLORS.green, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                            <img src="/antigravity-logo.png" alt="Antigravity" style={{ width: "100%", height: "100%", objectFit: "contain", padding: 4 }} />
                         </div>
                         <div>
                             <h3 style={{ fontWeight: 800, fontSize: 24, margin: 0 }}>Built with Google Antigravity</h3>
@@ -289,8 +253,8 @@ function TechStackTab() {
                     padding: 32, boxShadow: SHADOWS.hard, display: "flex", flexDirection: "column"
                 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
-                        <div style={{ padding: 12, background: "#F3E8FE", borderRadius: 12, border: `2px solid ${COLORS.navy}` }}>
-                            <Brain size={28} weight="duotone" color={COLORS.purple} />
+                        <div style={{ width: 52, height: 52, background: "#F3E8FE", borderRadius: 12, border: `2px solid ${COLORS.navy}`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                            <img src="/grok-logo.png" alt="Grok" style={{ width: "80%", height: "80%", objectFit: "contain" }} />
                         </div>
                         <div>
                             <h3 style={{ fontWeight: 800, fontSize: 18, color: COLORS.navy, margin: 0 }}>AI Synthesis</h3>
@@ -299,9 +263,9 @@ function TechStackTab() {
                     </div>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                        <StackItem title="Gemini 2.5 Flash-8B" desc="Lightning fast LLM backend" />
+                        <StackItem title="Grok 4 Fast Reasoning" desc="xAI's fastest reasoning model" />
                         <StackItem title="Agentic Pipeline" desc="Takes matrix inputs & outputs rules" />
-                        <StackItem title="Direct Google API" desc="No middleman SDK overhead" />
+                        <StackItem title="xAI OpenAI-Compatible API" desc="No middleman SDK overhead" />
                     </div>
                 </div>
 
@@ -324,6 +288,35 @@ function TechStackTab() {
                         <StackItem title="Vercel & Node" desc="Serverless edge deployment" />
                         <StackItem title="Next.js API Routes" desc="Secure endpoint processing" />
                         <StackItem title="Tailwind CSS" desc="Atomic utility styling classes" />
+                    </div>
+                </div>
+
+                {/* Supported Platforms */}
+                <div style={{
+                    gridColumn: "1 / -1",
+                    background: "white", border: `2px solid ${COLORS.navy}`, borderRadius: 16,
+                    padding: 32, boxShadow: SHADOWS.hard
+                }}>
+                    <h3 style={{ fontWeight: 800, fontSize: 18, color: COLORS.navy, margin: "0 0 8px 0" }}>Supported Platforms</h3>
+                    <p style={{ fontSize: 13, color: COLORS.textMuted, margin: "0 0 24px 0" }}>PEQ generates optimized prompts for each of these tools, with platform-specific formatting rules.</p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+                        {[
+                            { name: "Claude", src: "/claude-logo.png" },
+                            { name: "ChatGPT", src: "/chatgpt-logo.png" },
+                            { name: "Gemini", src: "/gemini-logo.png" },
+                            { name: "Grok", src: "/grok-logo.png" }
+                        ].map(p => (
+                            <div key={p.name} style={{
+                                display: "flex", alignItems: "center", gap: 10,
+                                background: "#FAFAFA", border: `2px solid ${COLORS.gray}`,
+                                borderRadius: 32, padding: "8px 16px 8px 8px"
+                            }}>
+                                <div style={{ width: 28, height: 28, borderRadius: 8, overflow: "hidden", background: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                    <img src={p.src} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                                </div>
+                                <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.navy }}>{p.name}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -352,13 +345,14 @@ function DeveloperTab() {
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 32, flexWrap: "wrap" }}>
 
                     {/* Placeholder for Profile Img, or a fun graphic */}
-                    <div style={{
-                        width: 120, height: 120, borderRadius: "50%", background: COLORS.purple,
-                        border: `4px solid ${COLORS.navy}`, display: "flex", alignItems: "center",
-                        justifyContent: "center", flexShrink: 0, boxShadow: SHADOWS.hardSmall
-                    }}>
-                        <User size={64} weight="fill" color="white" />
-                    </div>
+                    <img
+                        src="/tony-profile-pic.jpg"
+                        alt="Tony Melendez"
+                        style={{
+                            width: 120, height: 120, borderRadius: "50%", objectFit: "cover",
+                            border: `4px solid ${COLORS.navy}`, flexShrink: 0, boxShadow: SHADOWS.hardSmall
+                        }}
+                    />
 
                     <div style={{ flex: 1, minWidth: 280 }}>
                         <h2 style={{ fontSize: 32, fontWeight: 800, margin: "0 0 8px 0", letterSpacing: "-1px" }}>Tony Melendez</h2>
