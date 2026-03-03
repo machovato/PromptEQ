@@ -354,10 +354,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{ display: "flex", minHeight: "calc(100vh - 83px)" }}>
+      <div style={{ display: "flex", height: "calc(100vh - 83px)", overflow: "hidden" }}>
 
         {/* COLUMN 1: LEFT CONFIGURATION */}
-        <div style={{ flex: 1, padding: "48px 40px", maxWidth: 650, borderRight: `2px solid ${COLORS.gray}` }}>
+        <div style={{ flex: 1, padding: "48px 40px", maxWidth: 650, borderRight: `2px solid ${COLORS.gray}`, overflowY: "auto", height: "100%", boxSizing: "border-box" }}>
 
           {/* STEP 01 */}
           <div style={{ marginBottom: 48 }}>
@@ -471,11 +471,11 @@ export default function Home() {
         </div>
 
         {/* COLUMN 2: RIGHT BOOTH */}
-        <div style={{ flex: 1, padding: "48px 40px", display: "flex", flexDirection: "column", gap: 24, position: "sticky", top: 0, height: "100vh", boxSizing: "border-box" }}>
+        <div style={{ flex: 1, padding: "48px 40px", display: "flex", flexDirection: "column", gap: 24, height: "100%", boxSizing: "border-box", overflow: "hidden" }}>
 
           {/* TERMINAL */}
           <div style={{
-            flex: 1, background: COLORS.navy, borderRadius: 24, padding: "24px 32px",
+            flex: 1, minHeight: 0, background: COLORS.navy, borderRadius: 24, padding: "24px 32px",
             display: "flex", flexDirection: "column", boxShadow: SHADOWS.hard, border: `2px solid ${COLORS.navy}`
           }}>
             {/* Mac Dots / Header */}
