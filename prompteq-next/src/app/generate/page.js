@@ -377,6 +377,13 @@ export default function Home() {
     window.open(`https://twitter.com/intent/tweet?text=${tweet}`, "_blank");
   };
 
+  const shareOnLinkedIn = () => {
+    const url = encodeURIComponent("https://prompteq.app");
+    const title = encodeURIComponent("PEQ — Build Your Custom AI System Prompt");
+    const summary = encodeURIComponent("Just built a custom AI system prompt with PEQ — took 2 minutes. Every major AI tool has a hidden settings layer most people never touch. PEQ maps how you think into instructions your AI actually follows. Free to use.");
+    window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${summary}`, "_blank");
+  };
+
   return (
     <div className="flex-1 flex flex-col font-['Inter'] w-full min-h-0 bg-[#FAFAFA]">
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -668,6 +675,18 @@ export default function Home() {
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.256 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
                 Share on X
+              </button>
+              <button
+                onClick={shareOnLinkedIn}
+                style={{
+                  flex: 1, padding: "12px 0", borderRadius: 12, border: `2px solid ${COLORS.navy}`,
+                  background: "#0077B5", color: "white",
+                  fontSize: 13, fontWeight: 800, cursor: "pointer",
+                  boxShadow: SHADOWS.hardSmall, display: "flex", alignItems: "center", justifyContent: "center", gap: 8
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
+                Share on LinkedIn
               </button>
             </div>
           )}
