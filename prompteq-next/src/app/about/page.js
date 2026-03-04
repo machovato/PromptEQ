@@ -212,10 +212,10 @@ function TechStackTab() {
                     </div>
 
                     <p style={{ fontSize: 16, lineHeight: 1.6, margin: "0 0 24px 0" }}>
-                        PromptEQ was entirely conceptualized, drafted, and engineered in partnership with
-                        <strong> Google Antigravity</strong>. From the brutalist UI design choices to the Next.js
-                        App Router architecture and intelligent API routes, the application is a showcase of
-                        human-agent collaborative software development.
+                        The brutalist UI was designed in <strong>Google Stitch</strong> and brought to life
+                        through engineering in partnership with <strong>Google Antigravity</strong>. From the
+                        Next.js App Router architecture to the intelligent API routes, the application is a
+                        showcase of human-agent collaborative software development.
                     </p>
 
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
@@ -241,6 +241,7 @@ function TechStackTab() {
                     </div>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                        <StackItem title="Google Stitch" desc="Brutalist UI design & mockup" />
                         <StackItem title="Next.js App Router" desc="Full-stack React framework (v16)" />
                         <StackItem title="React" desc="v19 component library" />
                         <StackItem title="Phosphor Icons" desc="Consistent icon system" />
