@@ -58,13 +58,22 @@ export default function LandingPage() {
                     <p className="text-base md:text-lg text-[#131620] font-[700] leading-relaxed max-w-xl">
                         PEQ maps how you think into instructions your AI actually follows.
                     </p>
+                    <style>{`
+                        @keyframes cta-pulse {
+                            0%, 100% { box-shadow: 4px 4px 0px 0px rgba(19,22,32,1); }
+                            50% { box-shadow: 7px 7px 0px 0px rgba(19,22,32,0.6); }
+                        }
+                        .cta-btn { animation: cta-pulse 2.2s ease-in-out infinite; }
+                        .cta-btn:hover { animation: none; box-shadow: 2px 2px 0px 0px rgba(19,22,32,1); transform: translate(2px, 2px); }
+                    `}</style>
                     <Link
                         href="/generate"
-                        className="mt-2 bg-[#9b6dff] text-white px-8 py-4 rounded-2xl text-base font-[800] tracking-[-0.5px] transition-all shadow-[4px_4px_0px_0px_rgba(19,22,32,1)] border-2 border-[#131620] hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_0px_rgba(19,22,32,1)] no-underline flex items-center gap-3"
+                        className="cta-btn mt-2 bg-[#b4eb4c] text-[#131620] px-12 py-5 rounded-2xl text-lg font-[900] tracking-[-0.5px] border-2 border-[#131620] no-underline flex items-center gap-3 transition-transform"
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                        Open the Console
+                        Build My Custom Prompt →
                     </Link>
+                    <p className="text-[#9CA3AF] text-sm font-[600] tracking-wide">Free forever. Hit it and quit it.</p>
                 </div>
             </section>
 
@@ -76,19 +85,19 @@ export default function LandingPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="bg-white p-8 rounded-2xl border-2 border-[#131620] shadow-[4px_4px_0px_0px_rgba(19,22,32,1)]">
-                        <div className="w-12 h-12 rounded-full bg-[#b4eb4c] border-2 border-[#131620] flex items-center justify-center text-xl font-[900] text-[#131620] mb-6">1</div>
+                        <div className="w-12 h-12 rounded-full bg-[#9b6dff] border-2 border-[#131620] flex items-center justify-center text-xl font-[900] text-white mb-6">1</div>
                         <h3 className="text-xl font-[800] text-[#131620] mb-3">Pick a starting point</h3>
                         <p className="text-[#6B7280] font-[500] leading-relaxed">Choose an archetype (like Strategist or Operator) that functionally matches how you want the AI to behave.</p>
                     </div>
 
                     <div className="bg-white p-8 rounded-2xl border-2 border-[#131620] shadow-[4px_4px_0px_0px_rgba(19,22,32,1)]">
-                        <div className="w-12 h-12 rounded-full bg-[#b4eb4c] border-2 border-[#131620] flex items-center justify-center text-xl font-[900] text-[#131620] mb-6">2</div>
+                        <div className="w-12 h-12 rounded-full bg-[#9b6dff] border-2 border-[#131620] flex items-center justify-center text-xl font-[900] text-white mb-6">2</div>
                         <h3 className="text-xl font-[800] text-[#131620] mb-3">Dial it in</h3>
                         <p className="text-[#6B7280] font-[500] leading-relaxed">Fine-tune 10+ settings across communication, reasoning, and behavior using intuitive sliders.</p>
                     </div>
 
                     <div className="bg-white p-8 rounded-2xl border-2 border-[#131620] shadow-[4px_4px_0px_0px_rgba(19,22,32,1)]">
-                        <div className="w-12 h-12 rounded-full bg-[#b4eb4c] border-2 border-[#131620] flex items-center justify-center text-xl font-[900] text-[#131620] mb-6">3</div>
+                        <div className="w-12 h-12 rounded-full bg-[#9b6dff] border-2 border-[#131620] flex items-center justify-center text-xl font-[900] text-white mb-6">3</div>
                         <h3 className="text-xl font-[800] text-[#131620] mb-3">Copy and paste</h3>
                         <p className="text-[#6B7280] font-[500] leading-relaxed">Get a compressed, AI-translated system prompt optimized for your specific tool — and instructions on exactly where to paste it.</p>
                     </div>
