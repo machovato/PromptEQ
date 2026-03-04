@@ -261,6 +261,29 @@ export default function Home() {
   const [output, setOutput] = useState("");
   const [generating, setGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
+
+  // Restore state from URL params if someone opens a shared config link
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    if (!p.has("d")) return;
+    setSettings({
+      directness: parseInt(p.get("d") || 3),
+      verbosity: parseInt(p.get("v") || 3),
+      honesty: parseInt(p.get("h") || 3),
+      abstraction: parseInt(p.get("a") || 3),
+      structure: parseInt(p.get("s") || 3),
+      answerOrder: parseInt(p.get("o") || 3),
+      uncertainty: p.get("un") === "1",
+      clarify: p.get("cl") === "1",
+      emoji: p.get("em") || "never",
+      useCase: p.get("uc") || "writing",
+      expertise: p.get("ex") || "peer",
+      disagreement: p.get("dg") || "gentle",
+    });
+    if (p.has("preset")) setActivePreset(p.get("preset"));
+    if (p.has("plt")) setPlatform(p.get("plt"));
+  }, []);
 
   const getVibePreview = () => {
     let vibe = "";
@@ -327,6 +350,31 @@ export default function Home() {
     navigator.clipboard.writeText(output);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const buildShareUrl = () => {
+    const s = settings;
+    const params = new URLSearchParams({
+      d: s.directness, v: s.verbosity, h: s.honesty,
+      a: s.abstraction, st: s.structure, o: s.answerOrder,
+      un: s.uncertainty ? "1" : "0", cl: s.clarify ? "1" : "0",
+      em: s.emoji, uc: s.useCase, ex: s.expertise, dg: s.disagreement,
+      preset: activePreset, plt: platform,
+    });
+    return `${window.location.origin}/generate?${params.toString()}`;
+  };
+
+  const shareConfig = () => {
+    navigator.clipboard.writeText(buildShareUrl());
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2500);
+  };
+
+  const shareOnX = () => {
+    const tweet = encodeURIComponent(
+      `Just built a custom AI system prompt with PEQ ⚡ — took 2 minutes.\n\nTry it free: https://prompteq.app\n\n#AI #SystemPrompt #PromptEngineering`
+    );
+    window.open(`https://twitter.com/intent/tweet?text=${tweet}`, "_blank");
   };
 
   return (
@@ -591,6 +639,36 @@ export default function Home() {
             <div style={{ background: "rgba(180,235,76, 0.2)", border: `2px solid ${COLORS.navy}`, borderRadius: 12, padding: "12px 20px", fontSize: 13, fontWeight: 600, display: "flex", alignItems: "center", gap: 12, color: COLORS.navy }}>
               <span style={{ fontSize: 18 }}>💡</span>
               {PLATFORMS.find(p => p.id === platform)?.note}
+            </div>
+          )}
+
+          {output && (
+            <div style={{ display: "flex", gap: 10 }}>
+              <button
+                onClick={shareConfig}
+                style={{
+                  flex: 1, padding: "12px 0", borderRadius: 12, border: `2px solid ${COLORS.navy}`,
+                  background: linkCopied ? COLORS.green : "white", color: COLORS.navy,
+                  fontSize: 13, fontWeight: 800, cursor: "pointer",
+                  boxShadow: SHADOWS.hardSmall, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  transition: "background 0.2s ease"
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
+                {linkCopied ? "Copied!" : "Copy Config Link"}
+              </button>
+              <button
+                onClick={shareOnX}
+                style={{
+                  flex: 1, padding: "12px 0", borderRadius: 12, border: `2px solid ${COLORS.navy}`,
+                  background: COLORS.navy, color: "white",
+                  fontSize: 13, fontWeight: 800, cursor: "pointer",
+                  boxShadow: SHADOWS.hardSmall, display: "flex", alignItems: "center", justifyContent: "center", gap: 8
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.256 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+                Share on X
+              </button>
             </div>
           )}
         </div>
