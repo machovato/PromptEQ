@@ -37,6 +37,9 @@ export async function POST(req) {
 
         let text = data.choices?.[0]?.message?.content || "Error generating prompt. Connection failed.";
 
+        // Strip markdown code block wrappers if the LLM included them
+        text = text.replace(/^```[a-z]*\n?/i, '').replace(/\n?```$/i, '').trim();
+
         if (platform === "chatgpt" && !text.startsWith("#")) {
             text = `# Custom Instructions\n\n${text}`;
         } else if (platform !== "claude" && platform !== "chatgpt" && !text.startsWith("#")) {
