@@ -113,15 +113,6 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## Screenshots Needed
-
-> **For contributors:** Replace placeholder images with real screenshots:
->
-> - `screenshots/prompteq-main.png` — Homepage at 1440px wide
-> - `screenshots/prompteq-booth.png` — Generator with a prompt output visible in the terminal
-
----
-
 ## Contributing
 
 PRs welcome. If you're pulling on this — hi 👋 — open an issue or just fork and go.
