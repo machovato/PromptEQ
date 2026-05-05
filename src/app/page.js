@@ -42,7 +42,7 @@ export default function LandingPage() {
                     </div>
                     <h1 style={{ fontSize: 52, fontWeight: 900, lineHeight: 1.05, letterSpacing: "-2px", color: C.text, margin: "0 0 24px 0" }}>
                         Your AI is a<br />
-                        <span style={{ color: C.purple }}>yes-man.</span><br />
+                        <span style={{ color: C.purple }}>Psychophant.</span><br />
                         Let's fix that.
                     </h1>
                     <p style={{ fontSize: 17, color: C.textDim, lineHeight: 1.7, margin: "0 0 16px 0", maxWidth: 420 }}>
