@@ -25,7 +25,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-[#FAFAFA] text-[#15151A]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ display: "flex", flexDirection: "column", minHeight: "100%", background: "#0D0F14", color: "#F0F0F5" }}
       >
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
@@ -40,7 +41,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
         <GlobalHeader />
-        <main className="flex-1 flex flex-col min-h-0">
+        <main style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
           {children}
         </main>
         <GlobalFooter />

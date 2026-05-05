@@ -1,23 +1,25 @@
 {
-  "name": "prompteq",
+  "name": "prompteq-next",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "lucide-react": "^0.471.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@phosphor-icons/react": "^2.1.10",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.4",
-    "vite": "^5.3.4"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "25.3.3",
+    "@types/react": "19.2.14",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4"
   }
 }
