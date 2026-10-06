@@ -86,9 +86,9 @@ Instructions are shaped per platform. ChatGPT gets two separate boxes, each with
 - **Tailwind CSS** — utility styling
 - **Phosphor Icons** — icon system
 - **Grok API (xAI)** — LLM polish step (`grok-4.20-0309-non-reasoning`, ~7s, strict JSON-schema output)
-- **Vercel** — serverless deployment
+- **Railway** — hosting (`npm run build`, then `npm start`)
 
-There is a backend: a serverless API route that validates your settings, builds the prompt on the server (so the endpoint can't be used as an open LLM proxy), and calls xAI. It's rate-limited per IP on a best-effort basis. No user data is stored.
+There is a backend: an API route that validates your settings, builds the prompt on the server (so the endpoint can't be used as an open LLM proxy), and calls xAI. It's rate-limited per IP (8 polishes a minute) and each model call times out after 20 seconds. No user data is stored.
 
 ---
 

@@ -16,6 +16,7 @@ export function GlobalFooter() {
                 fontSize: 12, color: "#4B5563", letterSpacing: "0.5px"
             }}>
                 © {new Date().getFullYear()} PROMPTEQ — ENGINEERED FOR PRECISION
+                <span style={{ marginLeft: 12, color: "#6B7280" }}>v{process.env.NEXT_PUBLIC_APP_VERSION}</span>
             </div>
             <div className="peq-footer-links" style={{ display: "flex", alignItems: "center", gap: 32 }}>
                 <FooterLink href="/">Home</FooterLink>

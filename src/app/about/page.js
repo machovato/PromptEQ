@@ -132,7 +132,7 @@ function TechStackTab() {
                 <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: "2px", marginBottom: 12, textTransform: "uppercase" }}>{"// UNDER THE HOOD"}</div>
                 <h2 style={{ fontSize: 28, fontWeight: 900, letterSpacing: "-1px", margin: "0 0 16px 0" }}>Tech Stack</h2>
                 <p style={{ fontSize: 16, color: C.textDim, lineHeight: 1.75, margin: 0 }}>
-                    A modern web application leveraging serverless AI inference, built with brutalist UI principles and a fully state-driven experience.
+                    A modern web application with a server-side AI polish step, built with brutalist UI principles and a fully state-driven experience.
                 </p>
             </div>
 
@@ -180,7 +180,7 @@ function TechStackTab() {
 
                 {/* Infrastructure */}
                 <StackCard icon={<Lightning size={24} weight="duotone" color={C.green} />} title="Infrastructure" subtitle="Deployment Stack">
-                    <StackItem title="Vercel" desc="Serverless edge deployment" />
+                    <StackItem title="Railway" desc="Hosting and deployment" />
                     <StackItem title="Next.js API Routes" desc="Secure endpoint processing" />
                     <StackItem title="Tailwind CSS" desc="Atomic utility styling" />
                 </StackCard>
