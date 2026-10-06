@@ -287,16 +287,48 @@ export default function Home() {
   }, []);
 
   const getVibePreview = () => {
-    let vibe = "";
-    if (settings.directness >= 4) {
-      if (settings.verbosity <= 2) vibe = "Sales fell 12%. Fix mid-market churn.";
-      else vibe = "Revenue dropped 12% QoQ. The root cause is an 8% churn in the mid-market sector. Action required immediately.";
-    } else {
-      if (settings.verbosity <= 2) vibe = "It looks like revenue went down a bit. Let's look into mid-market retention!";
-      else vibe = "Thanks for sharing this data. I noticed a 12% decline in revenue this quarter, which seems primarily driven by mid-market churn. Let's explore some strategies together to address this.";
+    if (activePreset === "operator") {
+      return `• Revenue: -12%\n• Cause: Mid-market churn`;
     }
-    if (settings.structure >= 4) return `• Revenue: -12%\n• Cause: Mid-market churn`;
-    return vibe;
+    if (activePreset === "strategist") {
+      return "Thanks for sharing this data. I noticed a 12% decline in revenue this quarter, which seems primarily driven by mid-market churn. Let's explore some strategies together to address this.";
+    }
+    if (activePreset === "learner") {
+      return "I see revenue dipped 12% due to mid-market churn. What specific friction points are leading to these cancellations? Let's walk through the fundamentals and break down the numbers step by step.";
+    }
+    if (activePreset === "creator") {
+      return "Think of mid-market churn like a leaky bucket on a treadmill — revenue dropped 12%, but this is a chance to rethink our mid-tier offering entirely. What if we explore an unconventional retention angle?";
+    }
+
+    // Dynamic preview when faders/settings are customized
+    if (settings.structure >= 4) {
+      if (settings.directness >= 4) {
+        return `• Revenue: -12%\n• Cause: Mid-market churn`;
+      }
+      return `• Finding: 12% quarterly revenue decline\n• Key Factor: Mid-market churn\n• Exploration: Reviewing retention strategies`;
+    }
+
+    if (settings.abstraction >= 4) {
+      if (settings.directness >= 4) {
+        return "The engine is losing compression in mid-market — revenue is down 12%. Fix the leak immediately.";
+      }
+      return "Think of mid-market churn like a leaky bucket on a treadmill — revenue dropped 12%, but this gives us a cue to rethink the offering. Let's explore some fresh angles.";
+    }
+
+    if (settings.expertise === "new" || (settings.directness <= 2 && settings.verbosity >= 4)) {
+      return "I see revenue dropped 12% due to mid-market churn. What specific factors are causing customers to leave? Let's break down the fundamentals step by step.";
+    }
+
+    if (settings.directness >= 4) {
+      if (settings.verbosity <= 2) return "Sales fell 12%. Fix mid-market churn.";
+      return "Revenue dropped 12% QoQ. The root cause is an 8% churn in the mid-market sector. Action required immediately.";
+    }
+
+    if (settings.verbosity <= 2) {
+      return "It looks like revenue went down a bit. Let's look into mid-market retention!";
+    }
+
+    return "Thanks for sharing this data. I noticed a 12% decline in revenue this quarter, which seems primarily driven by mid-market churn. Let's explore some strategies together to address this.";
   };
 
   const handleUpdate = (key, val) => {
@@ -502,7 +534,7 @@ export default function Home() {
               {!output && !generating ? (
                 <div style={{ flex: 1 }}>
                   <div style={{ color: "#3B82F6", marginBottom: 6 }}># PROMPT_FOUNDATION: {activePreset.toUpperCase()}</div>
-                  <div style={{ marginBottom: 20, fontStyle: "italic" }}>{getVibePreview()}</div>
+                  <div style={{ marginBottom: 20, fontStyle: "italic", whiteSpace: "pre-line" }}>{getVibePreview()}</div>
                   <div style={{ color: "#3B82F6", marginBottom: 10 }}># PARAMETERS</div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 24px", marginBottom: 20 }}>
                     {[
