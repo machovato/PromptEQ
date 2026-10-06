@@ -85,7 +85,7 @@ Instructions are shaped per platform. ChatGPT gets two separate boxes, each with
 - **React 19** — component library
 - **Tailwind CSS** — utility styling
 - **Phosphor Icons** — icon system
-- **Grok API (xAI)** — LLM polish step (`grok-4.7`, low reasoning effort, strict JSON-schema output)
+- **Grok API (xAI)** — LLM polish step (`grok-4.20-0309-non-reasoning`, ~7s, strict JSON-schema output)
 - **Vercel** — serverless deployment
 
 There is a backend: a serverless API route that validates your settings, builds the prompt on the server (so the endpoint can't be used as an open LLM proxy), and calls xAI. It's rate-limited per IP on a best-effort basis. No user data is stored.
@@ -104,8 +104,8 @@ Create a `.env.local` file in the root:
 
 ```
 XAI_API_KEY=your_xai_api_key_here
-# Optional: override the polish model (e.g. grok-4.20-0309-non-reasoning for ~6s responses)
-# XAI_MODEL=grok-4.7
+# Optional: override the polish model; set XAI_REASONING_EFFORT only for models that accept it
+# XAI_MODEL=grok-4.3
 # XAI_REASONING_EFFORT=low
 ```
 

@@ -189,7 +189,7 @@ export function Booth({
             <div style={{ background: C.navy, border: `1px solid ${C.green}`, color: C.green, borderRadius: 10, padding: "12px 18px", fontFamily: MONO, fontSize: 12, lineHeight: 1.8, boxShadow: "0 10px 30px rgba(0,0,0,0.5)" }}>
               &gt; Rewriting for {platform.name}…<br />
               &gt; Checking your rules survived…<br />
-              <span className="peq-blink">_ usually 20–40s</span>
+              <span className="peq-blink">_ usually under 10s</span>
             </div>
           </div>
         )}

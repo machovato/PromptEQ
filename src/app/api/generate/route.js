@@ -2,13 +2,13 @@ import { buildDraft } from "../../../lib/prompt/builder";
 import { sanitizeSettings, sanitizePlatform } from "../../../lib/prompt/sanitize";
 import { synthesize } from "../../../lib/prompt/synthesis";
 
-// grok-4.7 at low reasoning effort gave the best rewrites in testing (~30s). For speed, set
-// XAI_MODEL=grok-4.20-0309-non-reasoning (~6s), which stays closer to the draft wording.
-const DEFAULT_MODEL = "grok-4.7";
-const DEFAULT_REASONING_EFFORT = "low";
+// Benchmarked Oct 2026: the non-reasoning model polished in ~7s (median) and matched the
+// reasoning models' output; grok-4.3 took ~16s, grok-4.7 ~20-30s, grok-4.20 reasoning ~60s.
+// Override with XAI_MODEL (and XAI_REASONING_EFFORT for models that accept it).
+const DEFAULT_MODEL = "grok-4.20-0309-non-reasoning";
 
-// Polishing can take ~30s, plus one retry if validation fails.
-export const maxDuration = 120;
+// One polish plus one retry fits comfortably; this also caps runaway requests.
+export const maxDuration = 30;
 
 // Best-effort per-IP limiter. Serverless instances don't share memory, so this slows abuse
 // rather than stopping it; swap in a shared store (e.g. Upstash/Vercel KV) for a hard limit.
@@ -50,7 +50,7 @@ export async function POST(req) {
     const result = await synthesize({
       draft, settings, platformId: platform, apiKey,
       model: process.env.XAI_MODEL || DEFAULT_MODEL,
-      reasoningEffort: process.env.XAI_REASONING_EFFORT ?? (process.env.XAI_MODEL ? undefined : DEFAULT_REASONING_EFFORT),
+      reasoningEffort: process.env.XAI_REASONING_EFFORT || undefined,
     });
 
     if (result.failed) {
