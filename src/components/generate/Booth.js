@@ -30,6 +30,14 @@ function SmallButton({ children, onClick, active, ...rest }) {
 
 function VibeCheck({ settings, scenario, setScenario }) {
   const [compare, setCompare] = useState(false);
+  // Any settings change snaps a compact booth back to "Your AI" — the default reply never changes,
+  // so leaving it on screen makes presets look broken.
+  const settingsKey = JSON.stringify(settings);
+  const [seenKey, setSeenKey] = useState(settingsKey);
+  if (settingsKey !== seenKey) {
+    setSeenKey(settingsKey);
+    setCompare(false);
+  }
   const sc = SCENARIOS.find(s => s.id === scenario);
   const yours = composeVibe(settings, scenario);
   return (
@@ -51,11 +59,15 @@ function VibeCheck({ settings, scenario, setScenario }) {
       </div>
       <div className="peq-vibe-grid" data-compare={compare ? "1" : "0"}>
         <div className="peq-vibe-default" style={{ borderRadius: 10, border: "1px dashed #475569", padding: "10px 12px" }}>
-          <div style={{ fontFamily: MONO, fontSize: 10, fontWeight: 700, color: "#F87171", marginBottom: 6 }}>DEFAULT AI</div>
+          <div style={{ fontFamily: MONO, fontSize: 10, fontWeight: 700, color: "#F87171", marginBottom: 6 }}>
+            DEFAULT AI <span style={{ color: "#64748B", fontWeight: 400 }}>· no instructions, never changes</span>
+          </div>
           <div style={{ fontSize: 12, lineHeight: 1.6, color: DIM, fontFamily: "'Inter', sans-serif" }}>{sc.defaultReply}</div>
         </div>
         <div className="peq-vibe-yours" style={{ borderRadius: 10, border: `1px solid ${C.green}66`, background: "rgba(180,235,76,0.06)", padding: "10px 12px" }}>
-          <div style={{ fontFamily: MONO, fontSize: 10, fontWeight: 700, color: C.green, marginBottom: 6 }}>YOUR AI</div>
+          <div style={{ fontFamily: MONO, fontSize: 10, fontWeight: 700, color: C.green, marginBottom: 6 }}>
+            YOUR AI <span style={{ color: "#64748B", fontWeight: 400 }}>· follows your settings</span>
+          </div>
           <div aria-live="polite" style={{ fontSize: 12, lineHeight: 1.6, color: "#F1F5F9", whiteSpace: "pre-line", fontFamily: "'Inter', sans-serif" }}>{yours}</div>
         </div>
       </div>
