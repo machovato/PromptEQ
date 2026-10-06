@@ -7,10 +7,10 @@ export function GlobalHeader() {
     const pathname = usePathname();
 
     return (
-        <div style={{
+        <div className="peq-header" style={{
             display: "flex", justifyContent: "space-between", alignItems: "center",
             background: "#0D0F14", borderBottom: "1px solid #2A2D3A",
-            padding: "0 40px", height: 56
+            height: 56, gap: 16
         }}>
             <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
                 <img src="/logo.png" alt="PromptEQ Logo" style={{ width: 28, height: 28, borderRadius: 8 }} />
@@ -20,13 +20,13 @@ export function GlobalHeader() {
                 }}>PROMPTEQ</span>
             </Link>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
+            <nav className="peq-header-nav" style={{ display: "flex", alignItems: "center", gap: 32 }}>
                 <NavLink href="/" current={pathname}>Home</NavLink>
                 <NavLink href="/generate" current={pathname}>Generate</NavLink>
                 <NavLink href="/about" current={pathname}>About</NavLink>
-            </div>
+            </nav>
 
-            <Link href="/generate" style={{
+            <Link href="/generate" className="peq-header-cta" style={{
                 background: "#b4eb4c", color: "#0D0F14",
                 padding: "8px 20px", borderRadius: 8,
                 fontFamily: "var(--font-geist-mono), monospace",
