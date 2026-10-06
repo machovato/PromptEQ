@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export function GlobalHeader() {
@@ -13,7 +14,7 @@ export function GlobalHeader() {
             height: 56, gap: 16
         }}>
             <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-                <img src="/logo.png" alt="PromptEQ Logo" style={{ width: 28, height: 28, borderRadius: 8 }} />
+                <Image src="/logo.png" alt="PromptEQ Logo" width={28} height={28} priority style={{ borderRadius: 8 }} />
                 <span style={{
                     fontFamily: "var(--font-geist-mono), monospace",
                     fontSize: 15, fontWeight: 700, color: "#F0F0F5", letterSpacing: "-0.5px"

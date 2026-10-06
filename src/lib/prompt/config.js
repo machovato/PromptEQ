@@ -69,10 +69,12 @@ export const ABOUT_FIELDS = [
   { key: "tools", label: "Tools / stack", placeholder: "e.g. Figma, SQL, Python, Notion" }
 ];
 
-// `hard` limits are enforced by the platform; the others are suggested lengths that keep instructions focused.
+// `hard` limits are enforced by the platform (ChatGPT: 1,500 per box). Claude, Gemini, and Grok publish no
+// official limit (third-party reports conflict: Claude ~1,500-2,000, Grok 4,000-12,000), so those are
+// suggested lengths that stay under every reported cap and keep instructions focused.
 export const PLATFORMS = [
   {
-    id: "claude", name: "Claude", icon: "/claude-logo.png", limit: 2000, hard: false, split: false,
+    id: "claude", name: "Claude", icon: "/claude-logo.png", limit: 1500, hard: false, split: false,
     note: "Settings > General > Profile > 'Custom Instructions'",
     guidance: "Pasted into Claude's profile preferences. Plain sentences or short bullets work best here; XML tags and headings add nothing in this field."
   },

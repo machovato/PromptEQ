@@ -123,3 +123,48 @@ test("vibe preview responds to faders", () => {
   const filler = composeVibe({ ...DEFAULT_SETTINGS, noFiller: false, directness: 1 }, "plan");
   assert.match(filler, /Hope that helps/);
 });
+
+import { isRateLimited, clientIp } from "../src/lib/rateLimit.js";
+
+test("memory rate limiter blocks after the limit within a window", async () => {
+  const opts = { limit: 2, windowMs: 1000, env: {}, now: 5000 };
+  assert.equal(await isRateLimited("a", opts), false);
+  assert.equal(await isRateLimited("a", opts), false);
+  assert.equal(await isRateLimited("a", opts), true);
+  assert.equal(await isRateLimited("b", opts), false);
+  assert.equal(await isRateLimited("a", { ...opts, now: 7000 }), false);
+});
+
+test("shared rate limiter uses Upstash REST and fails over to memory", async () => {
+  const env = { UPSTASH_REDIS_REST_URL: "https://redis.example/", UPSTASH_REDIS_REST_TOKEN: "t" };
+  const calls = [];
+  const fetchImpl = async (url, init) => {
+    calls.push({ url, body: JSON.parse(init.body), auth: init.headers.Authorization });
+    return { ok: true, json: async () => [{ result: 9 }, { result: 1 }] };
+  };
+  assert.equal(await isRateLimited("ip1", { limit: 8, windowMs: 60000, env, fetchImpl, now: 120000 }), true);
+  assert.equal(calls[0].url, "https://redis.example/pipeline");
+  assert.equal(calls[0].auth, "Bearer t");
+  assert.deepEqual(calls[0].body[0], ["INCR", "peq:rl:ip1:2"]);
+
+  const down = async () => { throw new Error("offline"); };
+  const origError = console.error; console.error = () => {};
+  try {
+    assert.equal(await isRateLimited("ip2", { limit: 8, windowMs: 60000, env, fetchImpl: down, now: 1 }), false);
+  } finally { console.error = origError; }
+});
+
+test("clientIp prefers x-real-ip, then the first forwarded address", () => {
+  assert.equal(clientIp(new Headers({ "x-real-ip": "1.1.1.1", "x-forwarded-for": "2.2.2.2" })), "1.1.1.1");
+  assert.equal(clientIp(new Headers({ "x-forwarded-for": "3.3.3.3, 10.0.0.1" })), "3.3.3.3");
+  assert.equal(clientIp(new Headers()), "local");
+});
+
+test("suggested limits get slack; hard limits don't", () => {
+  const draft = buildDraft(custom);
+  const r = validResult(draft);
+  r.about_me = "x".repeat(1700 - r.how_to_respond.length);
+  assert.deepEqual(checkPolished(r, draft, custom, "claude"), []);
+  r.about_me = "x".repeat(2000 - r.how_to_respond.length);
+  assert.match(checkPolished(r, draft, custom, "claude").join(), /keep them under 1500/);
+});

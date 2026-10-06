@@ -38,12 +38,12 @@ export default function LandingPage() {
                 {/* LEFT: Hook */}
                 <div>
                     <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, letterSpacing: "2px", color: C.green, marginBottom: 20, textTransform: "uppercase" }}>
-                        // SYSTEM ONLINE
+                        {"// SYSTEM ONLINE"}
                     </div>
                     <h1 style={{ fontSize: 52, fontWeight: 900, lineHeight: 1.05, letterSpacing: "-2px", color: C.text, margin: "0 0 24px 0" }}>
                         Your AI is a<br />
                         <span style={{ color: C.purple }}>Sycophant.</span><br />
-                        Let's fix that.
+                        Let&apos;s fix that.
                     </h1>
                     <p style={{ fontSize: 17, color: C.textDim, lineHeight: 1.7, margin: "0 0 16px 0", maxWidth: 420 }}>
                         Behind every AI is a hidden settings layer that controls how it thinks, pushes back, and communicates. Most people never touch it.
@@ -121,10 +121,10 @@ export default function LandingPage() {
                         Sound familiar?
                     </h2>
                     <p style={{ fontSize: 17, color: C.textDim, lineHeight: 1.75, margin: "0 0 16px 0" }}>
-                        By default, every AI is configured to be helpful, agreeable, and safe. That's why it never pushes back, never challenges your ideas, and always starts with "Sure! I'd be happy to help..."
+                        By default, every AI is configured to be helpful, agreeable, and safe. That&apos;s why it never pushes back, never challenges your ideas, and always starts with &quot;Sure! I&apos;d be happy to help...&quot;
                     </p>
                     <p style={{ fontSize: 17, color: C.text, fontWeight: 700, lineHeight: 1.75 }}>
-                        Your AI isn't broken — it's unconfigured.
+                        Your AI isn&apos;t broken — it&apos;s unconfigured.
                     </p>
                 </div>
             </section>
@@ -132,7 +132,7 @@ export default function LandingPage() {
             {/* ── HOW IT WORKS ── */}
             <section className="peq-section" style={{ maxWidth: 1100, margin: "0 auto", padding: "100px 40px" }}>
                 <div style={{ marginBottom: 56 }}>
-                    <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, letterSpacing: "2px", color: C.green, marginBottom: 16, textTransform: "uppercase" }}>// SIGNAL_CHAIN</div>
+                    <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, letterSpacing: "2px", color: C.green, marginBottom: 16, textTransform: "uppercase" }}>{"// SIGNAL_CHAIN"}</div>
                     <h2 style={{ fontSize: 40, fontWeight: 900, letterSpacing: "-1.5px", margin: 0 }}>Three steps to<br /><span style={{ color: C.purple }}>high-fidelity</span> output.</h2>
                 </div>
 
@@ -159,7 +159,7 @@ export default function LandingPage() {
 {/* ── CTA ── */}
             <section style={{ background: C.bgCard, borderTop: `1px solid ${C.border}`, padding: "100px 40px", textAlign: "center" }} className="peq-section">
                 <div style={{ maxWidth: 600, margin: "0 auto" }}>
-                    <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, letterSpacing: "2px", color: C.green, marginBottom: 20, textTransform: "uppercase" }}>// DEPLOY_WHEN_READY</div>
+                    <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, letterSpacing: "2px", color: C.green, marginBottom: 20, textTransform: "uppercase" }}>{"// DEPLOY_WHEN_READY"}</div>
                     <h2 style={{ fontSize: 48, fontWeight: 900, letterSpacing: "-2px", margin: "0 0 40px 0" }}>
                         Ready to master<br />your model?
                     </h2>

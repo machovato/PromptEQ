@@ -57,6 +57,7 @@ How to respond (draft):
 ${draft.respond.map(tag).join("\n")}`;
 }
 
+const SOFT_LIMIT_SLACK = 1.25;
 const EMOJI_RE = /\p{Extended_Pictographic}/u;
 const SHOUTING_RE = /\b(CRITICAL|MUST|NEVER|ALWAYS|IMPORTANT)\b/;
 const normalize = (t) => t.toLowerCase().replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim();
@@ -72,7 +73,8 @@ export function checkPolished(result, draft, settings, platformId) {
   if (platform.split) {
     if (about.length > platform.limit) problems.push(`about_me is ${about.length} characters; the limit is ${platform.limit}.`);
     if (respond.length > platform.limit) problems.push(`how_to_respond is ${respond.length} characters; the limit is ${platform.limit}.`);
-  } else if (about.length + respond.length > platform.limit) {
+  } else if (about.length + respond.length > platform.limit * (platform.hard ? 1 : SOFT_LIMIT_SLACK)) {
+    // Suggested limits get slack: running a little long beats discarding a good rewrite.
     problems.push(`The two sections total ${about.length + respond.length} characters; keep them under ${platform.limit}.`);
   }
 

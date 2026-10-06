@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { C, MONO, SHADOWS, CharCounter } from "./primitives";
 
 export function ActionBar({ platforms, platform, setPlatform, blocks, polishing, onPolish }) {
@@ -21,7 +22,7 @@ export function ActionBar({ platforms, platform, setPlatform, blocks, polishing,
                 display: "flex", alignItems: "center", gap: 8
               }}>
                 <span style={{ width: 24, height: 24, borderRadius: 6, background: "white", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <img src={p.icon} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} onError={(e) => { e.target.style.display = "none"; }} />
+                  <Image src={p.icon} alt="" width={24} height={24} style={{ objectFit: "contain" }} onError={(e) => { e.target.style.display = "none"; }} />
                 </span>
                 <span className="peq-platform-name">{p.name}</span>
               </button>
