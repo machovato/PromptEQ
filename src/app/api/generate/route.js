@@ -8,11 +8,8 @@ import { isRateLimited, clientIp } from "../../../lib/rateLimit";
 // Override with XAI_MODEL (and XAI_REASONING_EFFORT for models that accept it).
 const DEFAULT_MODEL = "grok-4.20-0309-non-reasoning";
 
-// One polish plus one retry fits comfortably; this also caps runaway requests.
-export const maxDuration = 30;
-
-// Per-IP limit. Shared across instances when UPSTASH_REDIS_REST_URL/TOKEN (or Vercel KV's
-// KV_REST_API_URL/TOKEN) are set; per-instance memory otherwise.
+// Per-IP limit. On Railway the app is one long-running process, so the in-memory limiter holds
+// for a single replica. If you scale to multiple replicas, set UPSTASH_REDIS_REST_URL/TOKEN to share it.
 const RATE_LIMIT = { limit: 8, windowMs: 60_000 };
 const MAX_BODY_BYTES = 8_000;
 

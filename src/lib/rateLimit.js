@@ -1,5 +1,5 @@
-// Fixed-window rate limiter. Uses Upstash Redis (or Vercel KV, which is Upstash) over REST when
-// configured, so the limit holds across serverless instances; otherwise falls back to per-instance memory.
+// Fixed-window rate limiter. In-memory by default, which is exact for a single long-running server.
+// When Upstash Redis REST credentials are set, the count is shared across replicas.
 
 const memory = new Map();
 
@@ -45,7 +45,7 @@ export async function isRateLimited(id, { limit, windowMs, env = process.env, fe
   return memoryHit(id, windowMs, now) > limit;
 }
 
-// Vercel sets x-real-ip; x-forwarded-for's first entry is the client elsewhere.
+// Railway's edge sets X-Real-IP to the client address; x-forwarded-for is the fallback for other hosts.
 export function clientIp(headers) {
   return headers.get("x-real-ip") || (headers.get("x-forwarded-for") || "").split(",")[0].trim() || "local";
 }

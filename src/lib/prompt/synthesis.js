@@ -58,6 +58,7 @@ ${draft.respond.map(tag).join("\n")}`;
 }
 
 const SOFT_LIMIT_SLACK = 1.25;
+const ATTEMPT_TIMEOUT_MS = 20_000;
 const EMOJI_RE = /\p{Extended_Pictographic}/u;
 const SHOUTING_RE = /\b(CRITICAL|MUST|NEVER|ALWAYS|IMPORTANT)\b/;
 const normalize = (t) => t.toLowerCase().replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim();
@@ -104,6 +105,8 @@ export async function synthesize({ draft, settings, platformId, apiKey, model, r
   for (let attempt = 0; attempt < 2; attempt++) {
     const resp = await fetchImpl("https://api.x.ai/v1/chat/completions", {
       method: "POST",
+      // Railway lets requests run for minutes, so cap each attempt here rather than relying on the host.
+      signal: AbortSignal.timeout(ATTEMPT_TIMEOUT_MS),
       headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
       body: JSON.stringify({
         model,
