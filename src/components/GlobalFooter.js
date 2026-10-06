@@ -7,7 +7,7 @@ export function GlobalFooter() {
     const pathname = usePathname();
     if (pathname === '/generate') return null;
     return (
-        <div style={{
+        <div className="peq-footer" style={{
             borderTop: "1px solid #2A2D3A", background: "#0D0F14",
             padding: "24px 40px", display: "flex", justifyContent: "space-between", alignItems: "center"
         }}>
@@ -17,7 +17,7 @@ export function GlobalFooter() {
             }}>
                 © {new Date().getFullYear()} PROMPTEQ — ENGINEERED FOR PRECISION
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
+            <div className="peq-footer-links" style={{ display: "flex", alignItems: "center", gap: 32 }}>
                 <FooterLink href="/">Home</FooterLink>
                 <FooterLink href="/generate">Generate</FooterLink>
                 <FooterLink href="/about">About</FooterLink>

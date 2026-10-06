@@ -1,55 +1,63 @@
+import { buildDraft } from "../../../lib/prompt/builder";
+import { sanitizeSettings, sanitizePlatform } from "../../../lib/prompt/sanitize";
+import { synthesize } from "../../../lib/prompt/synthesis";
+import { isRateLimited, clientIp } from "../../../lib/rateLimit";
+
+// Benchmarked Oct 2026: the non-reasoning model polished in ~7s (median) and matched the
+// reasoning models' output; grok-4.3 took ~16s, grok-4.7 ~20-30s, grok-4.20 reasoning ~60s.
+// Override with XAI_MODEL (and XAI_REASONING_EFFORT for models that accept it).
+const DEFAULT_MODEL = "grok-4.20-0309-non-reasoning";
+
+// One polish plus one retry fits comfortably; this also caps runaway requests.
+export const maxDuration = 30;
+
+// Per-IP limit. Shared across instances when UPSTASH_REDIS_REST_URL/TOKEN (or Vercel KV's
+// KV_REST_API_URL/TOKEN) are set; per-instance memory otherwise.
+const RATE_LIMIT = { limit: 8, windowMs: 60_000 };
+const MAX_BODY_BYTES = 8_000;
+
 export async function POST(req) {
-    try {
-        const { raw, platform } = await req.json();
-        const apiKey = process.env.XAI_API_KEY;
-
-        if (!apiKey) {
-            return Response.json({ error: "Missing XAI_API_KEY environment variable" }, { status: 500 });
-        }
-
-        const systemPrompt = "You are a System Prompt optimization specialist. Below is a set of user preferences generated from slider inputs. Your job is to synthesize these into a polished, cohesive set of Custom Instructions that an AI should follow.\n\nRules:\n- Do NOT just restate the inputs. BLEND them into a natural, unified voice description.\n- Where settings create tension (e.g., blunt tone + analogies), resolve it creatively into a coherent style.\n- Use strong, specific behavioral verbs (\"always lead with...\", \"never pad with...\").\n- Define HOW the AI should behave, not WHAT the AI is. No role declarations, relationship framing, or identity statements. Write behavioral rules that work across any type of conversation.\n- CRITICAL: Behavioral Rules (uncertainty, clarify, emoji, disagreement) are HARD CONSTRAINTS set explicitly by the user. You MUST honor them exactly as stated. Never soften, reinterpret, or override them — not even for stylistic coherence.\n- Output ONLY the final instructions block in Markdown. No preamble, no explanation.\n- Keep it under 200 words. Dense and usable.";
-
-        const userMessage = `Target platform: ${platform === "claude" ? "Claude (Anthropic)" : platform === "chatgpt" ? "ChatGPT (OpenAI)" : platform === "gemini" ? "Gemini (Google)" : platform === "grok" ? "Grok (xAI)" : "Generic AI assistant"}\n\nRaw preferences:\n\n${raw}`;
-
-        const resp = await fetch("https://api.x.ai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-                model: "grok-4-fast-reasoning",
-                messages: [
-                    { role: "system", content: systemPrompt },
-                    { role: "user", content: userMessage }
-                ],
-                max_tokens: 1000,
-            })
-        });
-
-        const data = await resp.json();
-
-        if (!resp.ok || data.error) {
-            const errMsg = data.error?.message || JSON.stringify(data);
-            console.error("xAI API error:", errMsg);
-            return Response.json({ error: errMsg }, { status: 500 });
-        }
-
-        let text = data.choices?.[0]?.message?.content || "Error generating prompt. Connection failed.";
-
-        // Strip markdown code block wrappers if the LLM included them
-        text = text.replace(/^```[a-z]*\n?/i, '').replace(/\n?```$/i, '').trim();
-
-        if (platform === "chatgpt" && !text.startsWith("#")) {
-            text = `# Custom Instructions\n\n${text}`;
-        } else if (platform !== "claude" && platform !== "chatgpt" && !text.startsWith("#")) {
-            text = `# System Prompt\n\n${text}`;
-        }
-
-        return Response.json({ text });
-
-    } catch (error) {
-        console.error("API error:", error);
-        return Response.json({ error: error.message }, { status: 500 });
+  try {
+    if (await isRateLimited(clientIp(req.headers), RATE_LIMIT)) {
+      return Response.json({ error: "Too many requests. Give it a minute and try again." }, { status: 429 });
     }
+
+    const apiKey = process.env.XAI_API_KEY;
+    if (!apiKey) {
+      console.error("Missing XAI_API_KEY environment variable");
+      return Response.json({ error: "The polish service isn't configured." }, { status: 500 });
+    }
+
+    const raw = await req.text();
+    if (raw.length > MAX_BODY_BYTES) {
+      return Response.json({ error: "Request too large." }, { status: 413 });
+    }
+    let body = null;
+    try { body = JSON.parse(raw); } catch { /* handled below */ }
+    if (!body || typeof body !== "object") {
+      return Response.json({ error: "Invalid request body." }, { status: 400 });
+    }
+
+    // The prompt is built here from validated settings, so the endpoint can't be used as an open LLM proxy.
+    const settings = sanitizeSettings(body.settings);
+    const platform = sanitizePlatform(body.platform);
+    const draft = buildDraft(settings);
+
+    const result = await synthesize({
+      draft, settings, platformId: platform, apiKey,
+      model: process.env.XAI_MODEL || DEFAULT_MODEL,
+      reasoningEffort: process.env.XAI_REASONING_EFFORT || undefined,
+    });
+
+    if (result.failed) {
+      console.error("Polish failed validation:", result.problems);
+      return Response.json({ fallback: true, problems: result.problems });
+    }
+    return Response.json({ aboutMe: result.aboutMe, howToRespond: result.howToRespond });
+
+  } catch (error) {
+    // Upstream errors can include account details; log them, don't return them.
+    console.error("API error:", error);
+    return Response.json({ error: "The AI service had a problem. Try again in a moment." }, { status: 502 });
+  }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Heart, Code, User, SlidersHorizontal, Lightning, Layout } from '@phosphor-icons/react';
 
 // --- DESIGN TOKENS ---
@@ -69,9 +70,9 @@ function AboutAppTab() {
     return (
         <div style={{ animation: "fadeIn 0.3s ease-out" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 24, marginBottom: 32 }}>
-                <img src="/logo.png" alt="PromptEQ Logo" style={{ width: 72, height: 72, borderRadius: 16, border: `1px solid ${C.border}` }} />
+                <Image src="/logo.png" alt="PromptEQ Logo" width={72} height={72} style={{ borderRadius: 16, border: `1px solid ${C.border}` }} />
                 <div>
-                    <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: "2px", marginBottom: 6, textTransform: "uppercase" }}>// ABOUT PROMPTEQ</div>
+                    <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: "2px", marginBottom: 6, textTransform: "uppercase" }}>{"// ABOUT PROMPTEQ"}</div>
                     <h1 style={{ fontSize: 32, fontWeight: 900, letterSpacing: "-1px", margin: 0 }}>Mixing Console for AI</h1>
                 </div>
             </div>
@@ -83,7 +84,7 @@ function AboutAppTab() {
                 AI models have a default personality — usually helpful, overly polite, and slightly verbose. PromptEQ lets you dial in exact profiles, whether you need a blunt code reviewer, a patient tutor, or a sharp thinking partner — and generates the optimized system prompt to load into Claude, ChatGPT, Gemini, or Grok.
             </p>
 
-            <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: "2px", marginBottom: 20, textTransform: "uppercase" }}>// HOW IT WORKS</div>
+            <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: "2px", marginBottom: 20, textTransform: "uppercase" }}>{"// HOW IT WORKS"}</div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 48 }}>
                 {[
@@ -115,7 +116,7 @@ function AboutAppTab() {
                     <h3 style={{ fontSize: 18, fontWeight: 800, margin: 0 }}>Why sliders?</h3>
                 </div>
                 <p style={{ fontSize: 15, color: C.textDim, lineHeight: 1.75, margin: 0 }}>
-                    Language is imprecise. "Be concise" means different things to different models. By using a normalized 1-to-5 scale across distinct behavioral axes, PromptEQ provides a standardized way to describe AI personality. The translation layer converts numeric values into the specific semantic instructions that models actually follow.
+                    Language is imprecise. &quot;Be concise&quot; means different things to different models. By using a normalized 1-to-5 scale across distinct behavioral axes, PromptEQ provides a standardized way to describe AI personality. The translation layer converts numeric values into the specific semantic instructions that models actually follow.
                 </p>
             </div>
         </div>
@@ -128,7 +129,7 @@ function TechStackTab() {
     return (
         <div style={{ animation: "fadeIn 0.3s ease-out" }}>
             <div style={{ marginBottom: 40 }}>
-                <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: "2px", marginBottom: 12, textTransform: "uppercase" }}>// UNDER THE HOOD</div>
+                <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: "2px", marginBottom: 12, textTransform: "uppercase" }}>{"// UNDER THE HOOD"}</div>
                 <h2 style={{ fontSize: 28, fontWeight: 900, letterSpacing: "-1px", margin: "0 0 16px 0" }}>Tech Stack</h2>
                 <p style={{ fontSize: 16, color: C.textDim, lineHeight: 1.75, margin: 0 }}>
                     A modern web application leveraging serverless AI inference, built with brutalist UI principles and a fully state-driven experience.
@@ -145,7 +146,7 @@ function TechStackTab() {
                 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
                         <div style={{ width: 48, height: 48, background: C.green, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", flexShrink: 0 }}>
-                            <img src="/antigravity-logo.png" alt="Antigravity" style={{ width: "100%", height: "100%", objectFit: "contain", padding: 4 }} onError={e => e.target.style.display = 'none'} />
+                            <Image src="/antigravity-logo.png" alt="Antigravity" width={40} height={40} style={{ objectFit: "contain" }} onError={e => e.target.style.display = 'none'} />
                         </div>
                         <div>
                             <h3 style={{ fontWeight: 800, fontSize: 20, margin: 0 }}>Built with Antigravity</h3>
@@ -172,7 +173,7 @@ function TechStackTab() {
 
                 {/* AI Engine */}
                 <StackCard icon={<span style={{ fontSize: 24 }}>🤖</span>} title="AI Synthesis" subtitle="Prompt Engine">
-                    <StackItem title="Grok Fast Reasoning" desc="xAI's reasoning model" />
+                    <StackItem title="Grok 4.20" desc="Polishes your draft; every rule is checked after" />
                     <StackItem title="Agentic Pipeline" desc="Matrix inputs → optimized rules" />
                     <StackItem title="xAI OpenAI-Compatible API" desc="No middleman SDK overhead" />
                 </StackCard>
@@ -196,7 +197,7 @@ function TechStackTab() {
                         {[{ name: "Claude", src: "/claude-logo.png" }, { name: "ChatGPT", src: "/chatgpt-logo.png" }, { name: "Gemini", src: "/gemini-logo.png" }, { name: "Grok", src: "/grok-logo.png" }].map(p => (
                             <div key={p.name} style={{ display: "flex", alignItems: "center", gap: 10, background: C.bgCardAlt, border: `1px solid ${C.border}`, borderRadius: 32, padding: "8px 16px 8px 8px" }}>
                                 <div style={{ width: 24, height: 24, borderRadius: 6, overflow: "hidden", background: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                    <img src={p.src} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "contain" }} onError={e => e.target.style.display = 'none'} />
+                                    <Image src={p.src} alt={p.name} width={24} height={24} style={{ objectFit: "contain" }} onError={e => e.target.style.display = 'none'} />
                                 </div>
                                 <span style={{ fontSize: 13, fontWeight: 700, color: C.textDim }}>{p.name}</span>
                             </div>
@@ -239,10 +240,10 @@ function DeveloperTab() {
         <div style={{ animation: "fadeIn 0.3s ease-out" }}>
             <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 16, padding: 40, boxShadow: `4px 4px 0px 0px ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 32, flexWrap: "wrap" }}>
-                    <img src="/tony-profile-pic.jpg" alt="Tony Melendez" style={{ width: 100, height: 100, borderRadius: "50%", objectFit: "cover", border: `2px solid ${C.border}`, flexShrink: 0 }} onError={e => e.target.style.display = 'none'} />
+                    <Image src="/tony-profile-pic.jpg" alt="Tony Melendez" width={100} height={100} style={{ borderRadius: "50%", objectFit: "cover", border: `2px solid ${C.border}`, flexShrink: 0 }} onError={e => e.target.style.display = 'none'} />
 
                     <div style={{ flex: 1, minWidth: 280 }}>
-                        <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: "2px", marginBottom: 8, textTransform: "uppercase" }}>// THE_DEVELOPER</div>
+                        <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: "2px", marginBottom: 8, textTransform: "uppercase" }}>{"// THE_DEVELOPER"}</div>
                         <h2 style={{ fontSize: 28, fontWeight: 900, margin: "0 0 6px 0", letterSpacing: "-1px" }}>Tony Melendez</h2>
                         <p style={{ fontSize: 15, color: C.textMuted, fontWeight: 600, margin: "0 0 24px 0" }}>Director of Knowledge Strategy & Enablement</p>
 
@@ -259,7 +260,7 @@ function DeveloperTab() {
                         <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 24, marginBottom: 28 }}>
                             <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 11, fontWeight: 700, color: C.textMuted, letterSpacing: "1px", marginBottom: 10, textTransform: "uppercase" }}>Why I built PromptEQ</div>
                             <p style={{ fontSize: 14, lineHeight: 1.75, color: C.textDim, margin: 0 }}>
-                                In studying how teams interact with LLMs, the barrier to entry isn't "writing prompts" — it's managing the complex, unwritten personality controls of the model. I wanted to build a UI that treated the LLM not as a chat box, but as an instrument with equalizers that could be precisely tuned.
+                                In studying how teams interact with LLMs, the barrier to entry isn&apos;t &quot;writing prompts&quot; — it&apos;s managing the complex, unwritten personality controls of the model. I wanted to build a UI that treated the LLM not as a chat box, but as an instrument with equalizers that could be precisely tuned.
                             </p>
                         </div>
 
